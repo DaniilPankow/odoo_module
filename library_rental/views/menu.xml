@@ -1,0 +1,11 @@
+<odoo>
+    <menuitem id="library_rental_menu_root" name="Бібліотека" sequence="10"/>
+    <menuitem id="library_rental_menu_books" name="Books"
+              parent="library_rental_menu_root" action="library_book_action" sequence="10"/>
+    <menuitem id="library_rental_menu_copies" name="Copies"
+              parent="library_rental_menu_root" action="library_copy_action" sequence="20"/>
+    <menuitem id="library_rental_menu_members" name="Members"
+              parent="library_rental_menu_root" action="library_member_action" sequence="30"/>
+    <menuitem id="library_rental_menu_loans" name="Loans"
+              parent="library_rental_menu_root" action="library_loan_action" sequence="40"/>
+</odoo>
