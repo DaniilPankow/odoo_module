@@ -23,6 +23,24 @@
         <field name="isbn">9780141439471</field>
         <field name="publish_year">1818</field>
     </record>
+    <record id="book_kobzar" model="library.book">
+        <field name="name">Кобзар</field>
+        <field name="author">Тарас Шевченко</field>
+        <field name="isbn">9789660396862</field>
+        <field name="publish_year">1840</field>
+    </record>
+    <record id="book_forest_song" model="library.book">
+        <field name="name">Лісова пісня</field>
+        <field name="author">Леся Українка</field>
+        <field name="isbn">9789660396879</field>
+        <field name="publish_year">1911</field>
+    </record>
+    <record id="book_old_man_and_sea" model="library.book">
+        <field name="name">The Old Man and the Sea</field>
+        <field name="author">Ernest Hemingway</field>
+        <field name="isbn">9780684801223</field>
+        <field name="publish_year">1952</field>
+    </record>
 
     <record id="copy_hobbit_001" model="library.copy">
         <field name="book_id" ref="book_the_hobbit"/>
@@ -50,7 +68,7 @@
         <field name="condition">new</field>
     </record>
     <record id="copy_pride_002" model="library.copy">
-        <field name="book_id" ref="book_pride_and_prejudice"/>
+        <field name="book_id" ref="book_forest_song"/>
         <field name="inventory_number">LIB-0006</field>
         <field name="condition">good</field>
     </record>
@@ -60,9 +78,19 @@
         <field name="condition">damaged</field>
     </record>
     <record id="copy_frankenstein_002" model="library.copy">
-        <field name="book_id" ref="book_frankenstein"/>
+        <field name="book_id" ref="book_old_man_and_sea"/>
         <field name="inventory_number">LIB-0008</field>
         <field name="condition">good</field>
+    </record>
+    <record id="copy_kobzar_001" model="library.copy">
+        <field name="book_id" ref="book_kobzar"/>
+        <field name="inventory_number">LIB-0009</field>
+        <field name="condition">new</field>
+    </record>
+    <record id="copy_kobzar_002" model="library.copy">
+        <field name="book_id" ref="book_kobzar"/>
+        <field name="inventory_number">LIB-0010</field>
+        <field name="condition">damaged</field>
     </record>
 
     <record id="member_anna" model="library.member">
@@ -70,18 +98,27 @@
         <field name="membership_number">MEM-0001</field>
         <field name="email">anna@example.com</field>
         <field name="phone">+380501112233</field>
+        <field name="user_id" ref="base.user_admin"/>
     </record>
     <record id="member_oleh" model="library.member">
         <field name="name">Oleh Melnyk</field>
         <field name="membership_number">MEM-0002</field>
         <field name="email">oleh@example.com</field>
         <field name="phone">+380671234567</field>
+        <field name="user_id" ref="base.user_demo"/>
     </record>
     <record id="member_ira" model="library.member">
         <field name="name">Iryna Shevchenko</field>
         <field name="membership_number">MEM-0003</field>
         <field name="email">iryna@example.com</field>
         <field name="phone">+380931234567</field>
+        <field name="user_id" ref="base.user_root"/>
+    </record>
+    <record id="member_danylo" model="library.member">
+        <field name="name">Danylo Bondar</field>
+        <field name="membership_number">MEM-0004</field>
+        <field name="email">danylo@example.com</field>
+        <field name="phone">+380991234567</field>
     </record>
 
     <record id="loan_active_anna" model="library.loan">
@@ -96,18 +133,37 @@
         <field name="loan_date" eval="(DateTime.today() - relativedelta(days=2)).strftime('%Y-%m-%d')"/>
         <field name="state">active</field>
     </record>
+    <record id="loan_active_anna_current" model="library.loan">
+        <field name="copy_id" ref="copy_hobbit_002"/>
+        <field name="member_id" ref="member_anna"/>
+        <field name="loan_date" eval="(DateTime.today() - relativedelta(days=2)).strftime('%Y-%m-%d')"/>
+        <field name="state">active</field>
+    </record>
+    <record id="loan_overdue_ira" model="library.loan">
+        <field name="copy_id" ref="copy_frankenstein_001"/>
+        <field name="member_id" ref="member_ira"/>
+        <field name="loan_date" eval="(DateTime.today() - relativedelta(days=30)).strftime('%Y-%m-%d')"/>
+        <field name="state">active</field>
+    </record>
     <record id="loan_returned_ira" model="library.loan">
         <field name="copy_id" ref="copy_pride_001"/>
-        <field name="member_id" ref="member_ira"/>
+        <field name="member_id" ref="member_anna"/>
         <field name="loan_date" eval="(DateTime.today() - relativedelta(days=30)).strftime('%Y-%m-%d')"/>
         <field name="return_date" eval="(DateTime.today() - relativedelta(days=10)).strftime('%Y-%m-%d')"/>
         <field name="state">returned</field>
     </record>
     <record id="loan_overdue_anna" model="library.loan">
-        <field name="copy_id" ref="copy_frankenstein_001"/>
-        <field name="member_id" ref="member_oleh"/>
+        <field name="copy_id" ref="copy_kobzar_001"/>
+        <field name="member_id" ref="member_ira"/>
         <field name="loan_date" eval="(DateTime.today() - relativedelta(days=10)).strftime('%Y-%m-%d')"/>
-        <field name="return_date" eval="(DateTime.today() - relativedelta(days=2)).strftime('%Y-%m-%d')"/>
+        <field name="return_date" eval="(DateTime.today() - relativedelta(days=5)).strftime('%Y-%m-%d')"/>
+        <field name="state">returned</field>
+    </record>
+    <record id="loan_returned_oleh" model="library.loan">
+        <field name="copy_id" ref="copy_lotr_002"/>
+        <field name="member_id" ref="member_oleh"/>
+        <field name="loan_date" eval="(DateTime.today() - relativedelta(days=20)).strftime('%Y-%m-%d')"/>
+        <field name="return_date" eval="(DateTime.today() - relativedelta(days=8)).strftime('%Y-%m-%d')"/>
         <field name="state">returned</field>
     </record>
 </odoo>
