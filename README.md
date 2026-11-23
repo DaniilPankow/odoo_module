@@ -102,4 +102,10 @@ Wizard повернення (`library.return.wizard`) — тимчасова м�
 
 ## Що виправлено вручну після AI
 
+- Відображення примірників: у списках, формах і повідомленні constraint примірник показувався як
+  "library.copy,8", бо в моделі library.copy немає поля name. У models/copy.py додано
+  _rec_name = 'inventory_number' та обчислюваний display_name через _compute_display_name
+  з @api.depends('inventory_number', 'book_id.name') (формат "<inventory_number>: <назва книги>").
+  Застарілий name_get не використано, бо в Odoo 19 його замінює _compute_display_name.
+
 TODO
