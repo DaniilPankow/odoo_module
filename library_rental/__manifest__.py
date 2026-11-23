@@ -6,6 +6,7 @@
     "author": "Odoo Custom Addons",
     "depends": ["base"],
     "data": [
+        "security/library_security.xml",
         "security/ir.model.access.csv",
         "views/book_views.xml",
         "views/copy_views.xml",
