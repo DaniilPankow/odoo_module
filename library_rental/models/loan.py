@@ -46,6 +46,16 @@ class LibraryLoan(models.Model):
     )
     author = fields.Char(related="copy_id.book_id.author", readonly=True)
 
+    @api.depends("copy_id.book_id.name", "member_id.name")
+    def _compute_display_name(self):
+        for record in self:
+            if record.copy_id.book_id.name and record.member_id.name:
+                record.display_name = (
+                    f"{record.copy_id.book_id.name} — {record.member_id.name}"
+                )
+            else:
+                record.display_name = "Нова видача"
+
     @api.depends("loan_date")
     def _compute_due_date(self):
         for record in self:

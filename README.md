@@ -132,6 +132,7 @@ Cron щодня шукає прострочені активні видачі м
 - **Порядок завантаження:** маніфест завантажує security XML перед ACL, views перед звітом і cron; `return_wizard_views.xml` стоїть перед `loan_views.xml`, що містить посилання на дію wizard.
 - **`ondelete` у wizard:** для `library.return.wizard.loan_id` явно вказано `cascade`, оскільки wizard є `TransientModel` із тимчасовими записами без бізнес-даних; для зв'язків Copy → Book, Loan → Copy та Loan → Member використано `restrict`.
 - **Related Many2one:** `library.loan.book_id` є related-полем без `store`, тому `ondelete` до нього не застосовується.
+- **Читабельна назва видачі:** `library.loan` у заголовку форми показувалась як `library.loan,1`, бо немає поля `name`; додано `_compute_display_name` з `@api.depends("copy_id.book_id.name", "member_id.name")`, формат — `<книга> — <читач>`.
 
 ## 10. Наскрізна самоперевірка
 
