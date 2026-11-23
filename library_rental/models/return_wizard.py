@@ -10,6 +10,7 @@ class LibraryReturnWizard(models.TransientModel):
         "library.loan",
         required=True,
         string="Видача",
+        ondelete="cascade",
     )
     condition_on_return = fields.Selection(
         selection=lambda self: self.env["library.copy"]._fields[
