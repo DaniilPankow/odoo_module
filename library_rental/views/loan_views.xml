@@ -34,6 +34,14 @@
         <field name="model">library.loan</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button string="Оформити повернення"
+                            type="action"
+                            name="%(action_library_return_wizard)d"
+                            context="{'default_loan_id': id}"
+                            invisible="state != 'active'"
+                            groups="library_rental.group_library_librarian"/>
+                </header>
                 <sheet>
                     <group>
                         <field name="copy_id"/>

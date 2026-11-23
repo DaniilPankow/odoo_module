@@ -11,8 +11,10 @@
         "views/book_views.xml",
         "views/copy_views.xml",
         "views/member_views.xml",
+        "views/return_wizard_views.xml",
         "views/loan_views.xml",
         "views/menu.xml",
+        "report/report_member_loan_history.xml",
     ],
     "demo": [
         "demo/library_demo.xml",
